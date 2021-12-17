@@ -134,7 +134,7 @@ uv_transmission_days <-
     x = "species_treatment",
     y = "lesion",
     color = "grey30",
-    palette = c("#018571", "#80cdc1","#a6611a","#dfc27d", "#80cdc1","#a6611a","#dfc27d"),
+    palette = c("#80cdc1","#018571","#a6611a","#dfc27d", "#018571","#a6611a","#dfc27d"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
@@ -156,7 +156,7 @@ uv_transmission_dose <-
     x = "species_treatment",
     y = "dose",
     color = "grey30",
-    palette = c("#018571", "#80cdc1","#a6611a","#dfc27d","#018571", "#80cdc1","#a6611a","#dfc27d"),
+    palette = c("#80cdc1","#018571","#a6611a","#dfc27d","#80cdc1","#018571","#a6611a","#dfc27d"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
@@ -179,7 +179,7 @@ uv_rate <- read.csv("sctld uv rate.csv", head = T)
 uv_rate
 uv_rate$treatment=factor(uv_rate$treatment, levels=unique(uv_rate$treatment)) 
 uv_transrate <- ggplot(uv_rate, aes(fill=forcats::fct_rev(condition), y=rate, x=treatment)) + 
-  scale_fill_manual(values=c("#018571", "#018571")) +
+  scale_fill_manual(values=c("#80cdc1", "#80cdc1")) +
   geom_col(width = 0.5) +
   theme_bw() 
 uv_transrate
@@ -191,7 +191,7 @@ ggsave("sctld uv rate.pdf", plot= uv_transrate, width=7.25, height=1.5, units="i
 
 # subset dataframe by species
 uv_ofav <- subset(uv, species=="Of")
-uv_ofav$treatment=factor(uv_ofav$treatment, levels=c("HW","DC","DW","UV")) 
+uv_ofav$treatment=factor(uv_ofav$treatment, levels=c("HW","DW","UV","DC")) 
 
 # subsetting O. faveolata dataframe to remove healthy water for comparisons between disease water and healthy water
 uv_ofav2 <- subset(uv_ofav, treatment!="HW")
@@ -225,21 +225,21 @@ uv_fitPs <- survfit(uv_survPs ~ treatment, data = uv_pstr)
 summary(uv_fitPs)
 
 # Kaplan-Meier plots for each species
-fill.color_ofav<-c("#018571", "#80cdc1","#a6611a","#dfc27d")
+fill.color_ofav<-c("#80cdc1","#a6611a","#dfc27d","#018571")
 
 uv_survival_Ofav<-ggsurvplot(uv_fitOf, data = uv_ofav, pval = TRUE, xlab="Days", ylab="Health probability",
                           conf.int = T, risk.table=T, palette=fill.color_ofav,
                           break.time.by=5, xlim=c(0,42), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 uv_survival_Ofav
 
-fill.color_ofav2<-c("#a6611a","#dfc27d","#80cdc1")
+fill.color_ofav2<-c("#a6611a","#dfc27d","#018571")
 
 uv_survival_Ofav2<-ggsurvplot(uv_fitOf2, data = uv_ofav2, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_ofav2,
                              break.time.by=5, xlim=c(0,42), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 uv_survival_Ofav2
 
-fill.color_Pstr<-c("#a6611a","#dfc27d","#80cdc1")
+fill.color_Pstr<-c("#a6611a","#dfc27d","#018571")
 
 uv_survival_Pstr<-ggsurvplot(uv_fitPs, data = uv_pstr, pval = TRUE, xlab="Days", ylab="Health probability",
                           conf.int = T, risk.table=T, palette=fill.color_Pstr,
@@ -372,7 +372,7 @@ ballast_transmission_days <-
     x = "species_treatment",
     y = "lesion",
     color = "grey30",
-    palette = c("#018571", "#80cdc1","#a6611a","#dfc27d", "#80cdc1","#a6611a","#dfc27d"),
+    palette = c("#80cdc1","#018571","#dfc27d","#a6611a", "#018571","#a6611a","#dfc27d"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
@@ -395,7 +395,7 @@ ballast_rate <- read.csv("sctld ballast rate.csv", head = T)
 ballast_rate
 ballast_rate$treatment=factor(ballast_rate$treatment, levels=unique(ballast_rate$treatment)) 
 ballast_transrate <- ggplot(ballast_rate, aes(fill=forcats::fct_rev(condition), y=rate, x=treatment)) + 
-  scale_fill_manual(values=c("#018571", "#018571")) +
+  scale_fill_manual(values=c("#80cdc1", "#80cdc1")) +
   geom_col(width = 0.5) +
   theme_bw() 
 ballast_transrate
@@ -407,7 +407,7 @@ ggsave("sctld ballast rate.pdf", plot= ballast_transrate, width=7.25, height=1.5
 
 # subset dataframe by species
 ballast_ofav <- subset(ballast, species=="Of")
-ballast_ofav$treatment=factor(ballast_ofav$treatment, levels=c("HW120","DC","DW24","DW120")) 
+ballast_ofav$treatment=factor(ballast_ofav$treatment, levels=c("HW120","DW24","DW120","DC")) 
 
 # subsetting O. faveolata dataframe to remove healthy water for comparisons between ballast water treatments
 ballast_ofav2 <- subset(ballast_ofav, treatment!="HW120")
@@ -442,21 +442,21 @@ ballast_fitPs <- survfit(ballast_survPs ~ treatment, data = ballast_pstr)
 summary(ballast_fitPs)
 
 # Kaplan-Meier plots for each species
-fill.color_ofav<-c("#018571", "#80cdc1","#dfc27d","#a6611a")
+fill.color_ofav<-c("#80cdc1","#dfc27d","#a6611a","#018571")
 
 ballast_survival_Ofav<-ggsurvplot(ballast_fitOf, data = ballast_ofav, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_ofav,
                              break.time.by=5, xlim=c(0,28), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 ballast_survival_Ofav
 
-fill.color_ofav2<-c("#dfc27d","#a6611a","#80cdc1")
+fill.color_ofav2<-c("#dfc27d","#a6611a","#018571")
 
 ballast_survival_Ofav2<-ggsurvplot(ballast_fitOf2, data = ballast_ofav2, pval = TRUE, xlab="Days", ylab="Health probability",
                                   conf.int = T, risk.table=T, palette=fill.color_ofav2,
                                   break.time.by=5, xlim=c(0,28), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 ballast_survival_Ofav2
 
-fill.color_Pstr<-c("#a6611a","#80cdc1")
+fill.color_Pstr<-c("#a6611a","#018571")
 
 ballast_survival_Pstr<-ggsurvplot(ballast_fitPs, data = ballast_pstr, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_Pstr,
