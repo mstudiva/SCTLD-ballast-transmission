@@ -15,6 +15,9 @@ uv <- read.csv("sctld uv transmission.csv", head=T)
 str(uv)
 head(uv)
 
+# creating a 'relative dose' variable for testing/visualization
+uv$rel_dose <- uv$dose/12067.488
+uv$rel_dose
 
 #### uv data normality/transformation ####
 
@@ -26,28 +29,28 @@ pdf("sctld uv normality.pdf")
   qqnorm(uv$lesion)
   qqline(uv$lesion)
 
-  hist(uv$dose)
-  qqnorm(uv$dose)
-  qqline(uv$dose)
+  hist(uv$rel_dose)
+  qqnorm(uv$rel_dose)
+  qqline(uv$rel_dose)
 dev.off()
 # inspect this plot, the first column shows the breakdown of data values and skew (histograms), the second column shows dispersion of residuals (Q-Q plots)
 # the histograms should be roughly bell-shaped, and the Q-Q plots should be relatively straight lines
 
 # Shapiro test, p-values below 0.05 indicate violations of normality assumptions
 shapiro.test(uv$lesion)
-shapiro.test(uv$dose)
+shapiro.test(uv$rel_dose)
 # both not normal
 
 # BoxCox transformation finds best exponent value for data transformation
 uv_bc_days <- boxcox(uv$lesion ~ uv$species_treatment)
 uv_lambda_days <- uv_bc_days$x[which.max(uv_bc_days$y)]
 
-uv_bc_dose <- boxcox(uv$dose ~ uv$species_treatment)
+uv_bc_dose <- boxcox(uv$rel_dose ~ uv$species_treatment)
 uv_lambda_dose <- uv_bc_dose$x[which.max(uv_bc_dose$y)]
 
 # Shapiro test, p-values below 0.05 indicate violations of normality assumptions
 shapiro.test((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
-shapiro.test((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
+shapiro.test((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
 # still not normal
 
 pdf("sctld uv normality transformed.pdf")
@@ -56,9 +59,9 @@ hist((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 qqnorm((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 qqline((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 
-hist((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
-qqnorm((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
-qqline((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
+hist((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
+qqnorm((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
+qqline((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
 dev.off()
 # both still not normal, but their histograms/Q-Q plots look better
 
@@ -71,23 +74,23 @@ dev.off()
 uv_anova_days <- aov((lesion) ~ species*treatment, data=uv)
 summary(uv_anova_days)
 
-uv_anova_dose <- aov((dose) ~ species*treatment, data=uv)
+uv_anova_dose <- aov((rel_dose) ~ species*treatment, data=uv)
 summary(uv_anova_dose)
 
 # ANOVA on Box-Cox transformed data
 uv_anova_days_bc <- aov(((lesion^uv_lambda_days-1)/uv_lambda_days) ~ species*treatment, data=uv)
 summary(uv_anova_days_bc)
 
-uv_anova_dose_bc <- aov(((dose^uv_lambda_dose-1)/uv_lambda_dose) ~ species*treatment, data=uv)
+uv_anova_dose_bc <- aov(((rel_dose^uv_lambda_dose-1)/uv_lambda_dose) ~ species*treatment, data=uv)
 summary(uv_anova_dose_bc)
 
 # Q-Q plots for raw and transformed data
 pdf("sctld uv normality ANOVA.pdf")
 par(mfrow=c(2,2))
 qqnorm(uv_anova_days$residuals, main="days"); qqline(uv_anova_days$residuals);
-qqnorm(uv_anova_dose$residuals, main="dose"); qqline(uv_anova_dose$residuals)
+qqnorm(uv_anova_dose$residuals, main="rel_dose"); qqline(uv_anova_dose$residuals)
 qqnorm(uv_anova_days_bc$residuals, main="days transformed"); qqline(uv_anova_days_bc$residuals)
-qqnorm(uv_anova_dose_bc$residuals, main="dose transformed"); qqline(uv_anova_dose_bc$residuals)
+qqnorm(uv_anova_dose_bc$residuals, main="rel_dose transformed"); qqline(uv_anova_dose_bc$residuals)
 dev.off()
 # despite deviations from normality in Box-Cox transformed data, Q-Q plot of ANOVA residuals appears more normal than with raw data
 # proceeding with ANOVA of transformed data, so copy the outputs from the second set of tests above
@@ -154,7 +157,7 @@ uv_transmission_dose <-
   ggboxplot(
     uv,
     x = "species_treatment",
-    y = "dose",
+    y = "rel_dose",
     color = "grey30",
     palette = c("#80cdc1","#018571","#a6611a","#dfc27d","#80cdc1","#018571","#a6611a","#dfc27d"),
     fill = "species_treatment",
@@ -163,7 +166,7 @@ uv_transmission_dose <-
     width = 0.7,
     size = 0.5
   ) + labs(x = "Treatment",
-           y = "Estimated Dose (L)",
+           y = "Relative Dose",
            fill = 'Treatment') + 
   theme_classic() + 
   theme(plot.title = element_text(hjust = 0.5),  legend.position = "right")+
@@ -184,7 +187,7 @@ uv_transrate <- ggplot(uv_rate, aes(fill=forcats::fct_rev(condition), y=rate, x=
   theme_bw() 
 uv_transrate
 
-ggsave("sctld uv rate.pdf", plot= uv_transrate, width=7.25, height=1.5, units="in", dpi=300)
+ggsave("sctld uv rate.pdf", plot= uv_transrate, width=6, height=1.5, units="in", dpi=300)
 
 
 #### uv survivorship ####
@@ -400,7 +403,7 @@ ballast_transrate <- ggplot(ballast_rate, aes(fill=forcats::fct_rev(condition), 
   theme_bw() 
 ballast_transrate
 
-ggsave("sctld ballast rate.pdf", plot= ballast_transrate, width=7.25, height=1.5, units="in", dpi=300)
+ggsave("sctld ballast rate.pdf", plot= ballast_transrate, width=7, height=1.5, units="in", dpi=300)
 
 
 #### ballast survivorship ####
