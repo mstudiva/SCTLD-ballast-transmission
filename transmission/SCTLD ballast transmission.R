@@ -15,9 +15,9 @@ uv <- read.csv("sctld uv transmission.csv", head=T)
 str(uv)
 head(uv)
 
-# creating a 'relative dose' variable for testing/visualization
-uv$rel_dose <- uv$dose/12067.488
-uv$rel_dose
+# creating a 'x 1000 L dose' variable for testing/visualization
+uv$dose <- uv$dose/1000
+uv$dose
 
 #### uv data normality/transformation ####
 
@@ -29,28 +29,28 @@ pdf("sctld uv normality.pdf")
   qqnorm(uv$lesion)
   qqline(uv$lesion)
 
-  hist(uv$rel_dose)
-  qqnorm(uv$rel_dose)
-  qqline(uv$rel_dose)
+  hist(uv$dose)
+  qqnorm(uv$dose)
+  qqline(uv$dose)
 dev.off()
 # inspect this plot, the first column shows the breakdown of data values and skew (histograms), the second column shows dispersion of residuals (Q-Q plots)
 # the histograms should be roughly bell-shaped, and the Q-Q plots should be relatively straight lines
 
 # Shapiro test, p-values below 0.05 indicate violations of normality assumptions
 shapiro.test(uv$lesion)
-shapiro.test(uv$rel_dose)
+shapiro.test(uv$dose)
 # both not normal
 
 # BoxCox transformation finds best exponent value for data transformation
 uv_bc_days <- boxcox(uv$lesion ~ uv$species_treatment)
 uv_lambda_days <- uv_bc_days$x[which.max(uv_bc_days$y)]
 
-uv_bc_dose <- boxcox(uv$rel_dose ~ uv$species_treatment)
+uv_bc_dose <- boxcox(uv$dose ~ uv$species_treatment)
 uv_lambda_dose <- uv_bc_dose$x[which.max(uv_bc_dose$y)]
 
 # Shapiro test, p-values below 0.05 indicate violations of normality assumptions
 shapiro.test((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
-shapiro.test((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
+shapiro.test((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
 # still not normal
 
 pdf("sctld uv normality transformed.pdf")
@@ -59,9 +59,9 @@ hist((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 qqnorm((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 qqline((uv$lesion^uv_lambda_days-1)/uv_lambda_days)
 
-hist((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
-qqnorm((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
-qqline((uv$rel_dose^uv_lambda_dose-1)/uv_lambda_dose)
+hist((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
+qqnorm((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
+qqline((uv$dose^uv_lambda_dose-1)/uv_lambda_dose)
 dev.off()
 # both still not normal, but their histograms/Q-Q plots look better
 
@@ -74,23 +74,23 @@ dev.off()
 uv_anova_days <- aov((lesion) ~ species*treatment, data=uv)
 summary(uv_anova_days)
 
-uv_anova_dose <- aov((rel_dose) ~ species*treatment, data=uv)
+uv_anova_dose <- aov((dose) ~ species*treatment, data=uv)
 summary(uv_anova_dose)
 
 # ANOVA on Box-Cox transformed data
 uv_anova_days_bc <- aov(((lesion^uv_lambda_days-1)/uv_lambda_days) ~ species*treatment, data=uv)
 summary(uv_anova_days_bc)
 
-uv_anova_dose_bc <- aov(((rel_dose^uv_lambda_dose-1)/uv_lambda_dose) ~ species*treatment, data=uv)
+uv_anova_dose_bc <- aov(((dose^uv_lambda_dose-1)/uv_lambda_dose) ~ species*treatment, data=uv)
 summary(uv_anova_dose_bc)
 
 # Q-Q plots for raw and transformed data
 pdf("sctld uv normality ANOVA.pdf")
 par(mfrow=c(2,2))
 qqnorm(uv_anova_days$residuals, main="days"); qqline(uv_anova_days$residuals);
-qqnorm(uv_anova_dose$residuals, main="rel_dose"); qqline(uv_anova_dose$residuals)
+qqnorm(uv_anova_dose$residuals, main="dose"); qqline(uv_anova_dose$residuals)
 qqnorm(uv_anova_days_bc$residuals, main="days transformed"); qqline(uv_anova_days_bc$residuals)
-qqnorm(uv_anova_dose_bc$residuals, main="rel_dose transformed"); qqline(uv_anova_dose_bc$residuals)
+qqnorm(uv_anova_dose_bc$residuals, main="dose transformed"); qqline(uv_anova_dose_bc$residuals)
 dev.off()
 # despite deviations from normality in Box-Cox transformed data, Q-Q plot of ANOVA residuals appears more normal than with raw data
 # proceeding with ANOVA of transformed data, so copy the outputs from the second set of tests above
@@ -129,6 +129,7 @@ uv_cld_dose
 
 # keeps treatment order as imported
 uv$species_treatment=factor(uv$species_treatment, levels=unique(uv$species_treatment)) 
+uv$species_treatment
 
 # boxplots comparing time to transmission among species/treatments
 uv_transmission_days <-
@@ -137,7 +138,7 @@ uv_transmission_days <-
     x = "species_treatment",
     y = "lesion",
     color = "grey30",
-    palette = c("#80cdc1","#018571","#a6611a","#dfc27d", "#018571","#a6611a","#dfc27d"),
+    palette = c("#d8b365","#f6e8c3","#8c510a", "#5ab4ac", "#d8b365","#f6e8c3","#8c510a"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
@@ -157,16 +158,16 @@ uv_transmission_dose <-
   ggboxplot(
     uv,
     x = "species_treatment",
-    y = "rel_dose",
+    y = "dose",
     color = "grey30",
-    palette = c("#80cdc1","#018571","#a6611a","#dfc27d","#80cdc1","#018571","#a6611a","#dfc27d"),
+    palette = c("#d8b365","#f6e8c3","#8c510a", "#5ab4ac", "#d8b365","#f6e8c3","#8c510a", "#5ab4ac"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
     width = 0.7,
     size = 0.5
   ) + labs(x = "Treatment",
-           y = "Relative Dose",
+           y = "Estimated Dose (1 x 103 L)",
            fill = 'Treatment') + 
   theme_classic() + 
   theme(plot.title = element_text(hjust = 0.5),  legend.position = "right")+
@@ -182,12 +183,14 @@ uv_rate <- read.csv("sctld uv rate.csv", head = T)
 uv_rate
 uv_rate$treatment=factor(uv_rate$treatment, levels=unique(uv_rate$treatment)) 
 uv_transrate <- ggplot(uv_rate, aes(fill=forcats::fct_rev(condition), y=rate, x=treatment)) + 
-  scale_fill_manual(values=c("#80cdc1", "#80cdc1")) +
+  scale_fill_manual(values=c("#d8b365", "#d8b365")) +
   geom_col(width = 0.5) +
-  theme_bw() 
+  theme_bw() +
+  labs(x = element_blank(),
+         y = "Proportion diseased")
 uv_transrate
 
-ggsave("sctld uv rate.pdf", plot= uv_transrate, width=6, height=1.5, units="in", dpi=300)
+ggsave("sctld uv rate.pdf", plot= uv_transrate, width=7, height=1.5, units="in", dpi=300)
 
 
 #### uv survivorship ####
@@ -228,21 +231,21 @@ uv_fitPs <- survfit(uv_survPs ~ treatment, data = uv_pstr)
 summary(uv_fitPs)
 
 # Kaplan-Meier plots for each species
-fill.color_ofav<-c("#80cdc1","#a6611a","#dfc27d","#018571")
+fill.color_ofav<-c("#5ab4ac","#d8b365","#f6e8c3","#8c510a")
 
 uv_survival_Ofav<-ggsurvplot(uv_fitOf, data = uv_ofav, pval = TRUE, xlab="Days", ylab="Health probability",
                           conf.int = T, risk.table=T, palette=fill.color_ofav,
                           break.time.by=5, xlim=c(0,42), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 uv_survival_Ofav
 
-fill.color_ofav2<-c("#a6611a","#dfc27d","#018571")
+fill.color_ofav2<-c("#d8b365","#f6e8c3","#8c510a")
 
 uv_survival_Ofav2<-ggsurvplot(uv_fitOf2, data = uv_ofav2, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_ofav2,
                              break.time.by=5, xlim=c(0,42), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 uv_survival_Ofav2
 
-fill.color_Pstr<-c("#a6611a","#dfc27d","#018571")
+fill.color_Pstr<-c("#d8b365","#f6e8c3","#8c510a")
 
 uv_survival_Pstr<-ggsurvplot(uv_fitPs, data = uv_pstr, pval = TRUE, xlab="Days", ylab="Health probability",
                           conf.int = T, risk.table=T, palette=fill.color_Pstr,
@@ -368,6 +371,9 @@ ballast_cld_days$Group <- c("Ps_DC","Of_DW120","Ps_DW120","Of_DW24","Ps_DW24","O
 # keeps treatment order as imported
 ballast$species_treatment=factor(ballast$species_treatment, levels=unique(ballast$species_treatment)) 
 
+# setting number of y axis decimal points to 1
+scale <- function(x) sprintf("%.1f", x)
+
 # boxplots comparing time to transmission among species/treatments
 ballast_transmission_days <-
   ggboxplot(
@@ -375,7 +381,7 @@ ballast_transmission_days <-
     x = "species_treatment",
     y = "lesion",
     color = "grey30",
-    palette = c("#80cdc1","#018571","#dfc27d","#a6611a", "#018571","#a6611a","#dfc27d"),
+    palette = c("#d8b365","#f6e8c3","#8c510a", "#5ab4ac", "#d8b365","#f6e8c3","#8c510a"),
     fill = "species_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.5),
@@ -384,6 +390,7 @@ ballast_transmission_days <-
   ) + labs(x = "Treatment",
            y = "Time to Transmission (d)",
            fill = 'Treatment') + 
+  scale_y_continuous(labels=scale) +
   theme_classic() + 
   theme(plot.title = element_text(hjust = 0.5),  legend.position = "right")+
   geom_text(data=ballast_cld_days, aes(x = Group, y=0, label=Letter)) 
@@ -398,12 +405,14 @@ ballast_rate <- read.csv("sctld ballast rate.csv", head = T)
 ballast_rate
 ballast_rate$treatment=factor(ballast_rate$treatment, levels=unique(ballast_rate$treatment)) 
 ballast_transrate <- ggplot(ballast_rate, aes(fill=forcats::fct_rev(condition), y=rate, x=treatment)) + 
-  scale_fill_manual(values=c("#80cdc1", "#80cdc1")) +
+  scale_fill_manual(values=c("#d8b365", "#d8b365")) +
   geom_col(width = 0.5) +
-  theme_bw() 
+  theme_bw()  +
+  labs(x = element_blank(),
+       y = "Proportion diseased")
 ballast_transrate
 
-ggsave("sctld ballast rate.pdf", plot= ballast_transrate, width=7, height=1.5, units="in", dpi=300)
+ggsave("sctld ballast rate.pdf", plot= ballast_transrate, width=6.8, height=1.5, units="in", dpi=300)
 
 
 #### ballast survivorship ####
@@ -445,21 +454,21 @@ ballast_fitPs <- survfit(ballast_survPs ~ treatment, data = ballast_pstr)
 summary(ballast_fitPs)
 
 # Kaplan-Meier plots for each species
-fill.color_ofav<-c("#80cdc1","#dfc27d","#a6611a","#018571")
+fill.color_ofav<-c("#018571","#f6e8c3","#d8b365","#8c510a")
 
 ballast_survival_Ofav<-ggsurvplot(ballast_fitOf, data = ballast_ofav, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_ofav,
                              break.time.by=5, xlim=c(0,28), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 ballast_survival_Ofav
 
-fill.color_ofav2<-c("#dfc27d","#a6611a","#018571")
+fill.color_ofav2<-c("#f6e8c3","#d8b365","#8c510a")
 
 ballast_survival_Ofav2<-ggsurvplot(ballast_fitOf2, data = ballast_ofav2, pval = TRUE, xlab="Days", ylab="Health probability",
                                   conf.int = T, risk.table=T, palette=fill.color_ofav2,
                                   break.time.by=5, xlim=c(0,28), risk.table.y.text = FALSE) + ggtitle("Orbicella faveolata") 
 ballast_survival_Ofav2
 
-fill.color_Pstr<-c("#a6611a","#018571")
+fill.color_Pstr<-c("#d8b365","#8c510a")
 
 ballast_survival_Pstr<-ggsurvplot(ballast_fitPs, data = ballast_pstr, pval = TRUE, xlab="Days", ylab="Health probability",
                              conf.int = T, risk.table=T, palette=fill.color_Pstr,
