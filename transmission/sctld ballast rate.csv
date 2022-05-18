@@ -1,0 +1,17 @@
+species,treatment,condition,rate
+Of,Of_DW24,diseased,0.7
+Of,Of_DW24,healthy,0.3
+Of,Of_DW120,diseased,1
+Of,Of_DW120,healthy,0
+Of,Of_DC,diseased,0.9
+Of,Of_DC,healthy,0.1
+Of,Of_HW120,diseased,0.1
+Of,Of_HW120,healthy,0.9
+Ps,Ps_DW24,diseased,0
+Ps,Ps_DW24,healthy,1
+Ps,Ps_DW120,diseased,0.714
+Ps,Ps_DW120,healthy,0.286
+Ps,Ps_DC,diseased,0.714
+Ps,Ps_DC,healthy,0.286
+Ps,Ps_HW120,diseased,0
+Ps,Ps_HW120,healthy,1

@@ -1,0 +1,17 @@
+species,treatment,condition,rate
+Of,Of_DW,diseased,0.6
+Of,Of_DW,healthy,0.4
+Of,Of_UV,diseased,0.3
+Of,Of_UV,healthy,0.7
+Of,Of_DC,diseased,1
+Of,Of_DC,healthy,0
+Of,Of_HW,diseased,0.1
+Of,Of_HW,healthy,0.9
+Ps,Ps_DW,diseased,0.5
+Ps,Ps_DW,healthy,0.5
+Ps,Ps_UV,diseased,0.25
+Ps,Ps_UV,healthy,0.75
+Ps,Ps_DC,diseased,0.875
+Ps,Ps_DC,healthy,0.125
+Ps,Ps_HW,diseased,0
+Ps,Ps_HW,healthy,1

@@ -1,0 +1,110 @@
+id,treatment,dose,replicate,cfu
+SCTLD-01,Sanitron,0,A,50.7
+SCTLD-02,Sanitron,0,B,33.9
+SCTLD-03,Sanitron,0,C,41.4
+SCTLD-04,Sanitron,50,A,0.4
+SCTLD-05,Sanitron,50,B,0.8
+SCTLD-06,Sanitron,50,C,0.4
+SCTLD-07,Sanitron,100,A,0.8
+SCTLD-08,Sanitron,100,B,0.2
+SCTLD-09,Sanitron,100,C,0.2
+SCTLD-10,Sanitron,200,A,0.4
+SCTLD-11,Sanitron,200,B,0.2
+SCTLD-12,Sanitron,200,C,0.2
+SCTLD-16,Sanitron,0,A,73.8
+SCTLD-17,Sanitron,0,B,73.8
+SCTLD-18,Sanitron,0,C,28.7
+SCTLD-19,Sanitron,50,A,3
+SCTLD-20,Sanitron,50,B,2.6
+SCTLD-21,Sanitron,50,C,1.7
+SCTLD-22,Sanitron,100,A,4.3
+SCTLD-23,Sanitron,100,B,6.2
+SCTLD-24,Sanitron,100,C,4.8
+SCTLD-25,Sanitron,200,A,3
+SCTLD-26,Sanitron,200,B,1.7
+SCTLD-27,Sanitron,200,C,1.9
+SCTLD-28,Sanitron,300,A,23.9
+SCTLD-29,Sanitron,300,B,32.4
+SCTLD-30,Sanitron,300,C,27.6
+SCTLD-31,Sanitron,0,A,73.8
+SCTLD-32,Sanitron,0,B,73.8
+SCTLD-33,Sanitron,0,C,50.7
+SCTLD-34,Sanitron,50,A,3.8
+SCTLD-35,Sanitron,50,B,2.1
+SCTLD-36,Sanitron,50,C,2.8
+SCTLD-37,Sanitron,100,A,3.8
+SCTLD-38,Sanitron,100,B,1.7
+SCTLD-39,Sanitron,100,C,1.2
+SCTLD-40,Sanitron,200,A,0.8
+SCTLD-41,Sanitron,200,B,0.8
+SCTLD-42,Sanitron,200,C,1
+SCTLD-43,Sanitron,300,A,5.3
+SCTLD-44,Sanitron,300,B,6.5
+SCTLD-45,Sanitron,300,C,5.3
+SCTLD-46,Collimated beam,0,A,73.8
+SCTLD-47,Collimated beam,0,B,73.8
+SCTLD-48,Collimated beam,0,C,73.8
+SCTLD-49,Collimated beam,5,A,0.6
+SCTLD-51,Collimated beam,5,C,0.4
+SCTLD-52,Collimated beam,10,A,0.2
+SCTLD-53,Collimated beam,10,B,0.2
+SCTLD-54,Collimated beam,10,C,0.2
+SCTLD-55,Collimated beam,25,A,0.2
+SCTLD-56,Collimated beam,25,B,0.2
+SCTLD-57,Collimated beam,25,C,0.2
+SCTLD-58,Collimated beam,50,A,0.2
+SCTLD-59,Collimated beam,50,B,0.2
+SCTLD-60,Collimated beam,50,C,0.2
+SCTLD-61,Collimated beam,100,A,0.2
+SCTLD-62,Collimated beam,100,B,0.2
+SCTLD-63,Collimated beam,100,C,0.2
+SCTLD-64,Collimated beam,200,A,0.2
+SCTLD-65,Collimated beam,200,B,0.2
+SCTLD-66,Collimated beam,200,C,0.2
+SCTLD-67,Collimated beam,0,A,73.8
+SCTLD-68,Collimated beam,0,B,73.8
+SCTLD-69,Collimated beam,0,C,73.8
+SCTLD-70,Collimated beam,5,A,73.8
+SCTLD-71,Collimated beam,5,B,73.8
+SCTLD-72,Collimated beam,5,C,73.8
+SCTLD-73,Collimated beam,10,A,73.8
+SCTLD-74,Collimated beam,10,B,62.3
+SCTLD-75,Collimated beam,10,C,73.8
+SCTLD-76,Collimated beam,25,A,50.7
+SCTLD-77,Collimated beam,25,B,41.4
+SCTLD-78,Collimated beam,25,C,44
+SCTLD-79,Collimated beam,50,A,6.5
+SCTLD-80,Collimated beam,50,B,17.1
+SCTLD-81,Collimated beam,50,C,9
+SCTLD-83,Collimated beam,100,B,4
+SCTLD-84,Collimated beam,100,C,5.1
+SCTLD-85,Collimated beam,200,A,1.7
+SCTLD-86,Collimated beam,200,B,0.8
+SCTLD-87,Collimated beam,200,C,1.7
+SCTLD-88,Collimated beam,300,A,1.2
+SCTLD-89,Collimated beam,300,B,0.4
+SCTLD-90,Collimated beam,300,C,1.9
+SCTLD-91,Collimated beam,0,A,73.8
+SCTLD-92,Collimated beam,0,B,73.8
+SCTLD-93,Collimated beam,0,C,73.8
+SCTLD-94,Collimated beam,5,A,55.5
+SCTLD-95,Collimated beam,5,B,47
+SCTLD-96,Collimated beam,5,C,41.4
+SCTLD-97,Collimated beam,10,A,55.5
+SCTLD-98,Collimated beam,10,B,32.4
+SCTLD-99,Collimated beam,10,C,24.8
+SCTLD-100,Collimated beam,25,A,29.9
+SCTLD-101,Collimated beam,25,B,18.3
+SCTLD-102,Collimated beam,25,C,62.3
+SCTLD-103,Collimated beam,50,A,35.5
+SCTLD-104,Collimated beam,50,B,35.5
+SCTLD-105,Collimated beam,50,C,55.5
+SCTLD-106,Collimated beam,100,A,12.8
+SCTLD-107,Collimated beam,100,B,35.5
+SCTLD-108,Collimated beam,100,C,32.4
+SCTLD-109,Collimated beam,200,A,7.7
+SCTLD-110,Collimated beam,200,B,37.2
+SCTLD-111,Collimated beam,200,C,26.6
+SCTLD-112,Collimated beam,300,A,6.5
+SCTLD-113,Collimated beam,300,B,4
+SCTLD-114,Collimated beam,300,C,0.6

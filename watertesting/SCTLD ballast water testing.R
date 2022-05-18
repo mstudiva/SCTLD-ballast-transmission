@@ -28,7 +28,7 @@ beam_plot <-  ggplot(beam_mean, aes(x=dose, y=cfu, color=treatment)) +
   scale_y_continuous(breaks = seq(0, 80, by = 20)) +
   scale_x_continuous(breaks = seq(0, 300, by = 50)) +
   theme_classic() +
-  xlab("Estimated dose (mWs-1 cm-2)") +
+  xlab("Estimated dose (mWs cm-2)") +
   ylab("CFU mL-1")
 beam_plot
 
@@ -228,9 +228,9 @@ vectors <- uv_counts_pcoa$vectors
 
 pdf(file="sctld uv cellcounts PCoA.pdf", width=12, height=6)
 par(mfrow=c(1,2))
-plot(vectors[,1], vectors[,2],col=c("#d8b365","#f6e8c3","#5ab4ac")[as.numeric(as.factor(uv_counts$treatment))],pch=c(15,1,19,17)[as.numeric((as.factor(uv_counts$time)))], xlab="Coordinate 1", ylab="Coordinate 2", main="Treatment")
-# ordispider(vectors, uv_counts$treatment, label=F, col=c("#d8b365","#f6e8c3","#5ab4ac"))
-legend("topright", legend=c("DW", "UV","HW"), fill = c("#d8b365","#f6e8c3","#5ab4ac"), bty="n")
+plot(vectors[,1], vectors[,2],col=c("#79C479","#C3DE9A","#28A9E1")[as.numeric(as.factor(uv_counts$treatment))],pch=c(15,1,19,17)[as.numeric((as.factor(uv_counts$time)))], xlab="Coordinate 1", ylab="Coordinate 2", main="Treatment")
+# ordispider(vectors, uv_counts$treatment, label=F, col=c("#79C479","#C3DE9A","#28A9E1"))
+legend("topright", legend=c("DW", "UV","HW"), fill = c("#79C479","#C3DE9A","#28A9E1"), bty="n")
 legend("bottomright", legend=c("t0","t1","t2","t3"), pch=c(15,1,19,17), bty="n")
 plot(vectors[,1], vectors[,2],col=c("black","grey75","grey50","grey25")[as.numeric(as.factor(uv_counts$time))],pch=c(15,18,25,3)[as.numeric(as.factor(uv_counts$treatment))], xlab="Coordinate 1", ylab="Coordinate 2", main="Time")
 # ordispider(vectors, uv_counts$condition, label=F, col=c("black","grey75","grey50","grey25"))
@@ -317,7 +317,7 @@ uv_counts_plot <-
     x = "time_treatment",
     y = "live",
     color = "grey30",
-    palette = c("#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac"),
+    palette = c("#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
@@ -368,7 +368,7 @@ uv_pam_Fo_plot <-
     x = "time_treatment",
     y = "Fo",
     color = "grey30",
-    palette = c("#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac"),
+    palette = c("#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
@@ -418,7 +418,7 @@ uv_pam_Fv_plot <-
     x = "time_treatment",
     y = "Fv",
     color = "grey30",
-    palette = c("#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac","#d8b365","#f6e8c3", "#5ab4ac"),
+    palette = c("#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1","#79C479","#C3DE9A","#28A9E1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
@@ -626,9 +626,9 @@ vectors <- ballast_counts_pcoa$vectors
 
 pdf(file="sctld ballast cellcounts PCoA.pdf", width=12, height=6)
 par(mfrow=c(1,2))
-plot(vectors[,1], vectors[,2],col=c("#f6e8c3","#d8b365","#5ab4ac")[as.numeric(as.factor(ballast_counts$treatment))],pch=c(15,1)[as.numeric((as.factor(ballast_counts$time)))], xlab="Coordinate 1", ylab="Coordinate 2", main="Treatment")
-# ordispider(vectors, ballast_counts$treatment, label=F, col=c("#f6e8c3","#d8b365","#5ab4ac"))
-legend("topright", legend=c("DW24","DW120","HW120"), fill = c("#f6e8c3","#d8b365","#5ab4ac"), bty="n")
+plot(vectors[,1], vectors[,2],col=c("#79C479","#32A354","#27AAE1")[as.numeric(as.factor(ballast_counts$treatment))],pch=c(15,1)[as.numeric((as.factor(ballast_counts$time)))], xlab="Coordinate 1", ylab="Coordinate 2", main="Treatment")
+# ordispider(vectors, ballast_counts$treatment, label=F, col=c("#79C479","#32A354","#27AAE1"))
+legend("topright", legend=c("DW24","DW120","HW120"), fill = c("#79C479","#32A354","#27AAE1"), bty="n")
 legend("bottomright", legend=c("t0","t1"), pch=c(15,1), bty="n")
 plot(vectors[,1], vectors[,2],col=c("black","grey75")[as.numeric(as.factor(ballast_counts$time))],pch=c(15,18,25)[as.numeric(as.factor(ballast_counts$treatment))], xlab="Coordinate 1", ylab="Coordinate 2", main="Time")
 # ordispider(vectors, ballast_counts$time, label=F, col=c("black","grey75"))
@@ -719,7 +719,7 @@ ballast_counts_plot <-
     x = "time_treatment",
     y = "live",
     color = "grey30",
-    palette = c("#f6e8c3","#d8b365","#5ab4ac","#f6e8c3","#d8b365","#5ab4ac"),
+    palette = c("#79C479","#32A354","#27AAE1","#79C479","#32A354","#27AAE1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
@@ -770,7 +770,7 @@ ballast_pam_Fo_plot <-
     x = "time_treatment",
     y = "Fo",
     color = "grey30",
-    palette = c("#f6e8c3","#d8b365","#5ab4ac","#f6e8c3","#d8b365","#5ab4ac"),
+    palette = c("#79C479","#32A354","#27AAE1","#79C479","#32A354","#27AAE1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
@@ -817,7 +817,7 @@ ballast_pam_Fv_plot <-
     x = "time_treatment",
     y = "Fv",
     color = "grey30",
-    palette = c("#f6e8c3","#d8b365","#5ab4ac","#f6e8c3","#d8b365","#5ab4ac"),
+    palette = c("#79C479","#32A354","#27AAE1","#79C479","#32A354","#27AAE1"),
     fill = "time_treatment",
     add = "jitter",
     add.params = list(size = 1, jitter = 0.25),
